@@ -49,11 +49,11 @@ Multi-Layer Design:
 // Initial oscillator
 snd = Saw.ar(\freq.kr(440) * (2 ** TIRand.ar(-1, 1, Dust.ar(4))));
 
-// Filter chain
+// Filters
 snd = BHiShelf.ar(snd, 3000, 1.0, 10.0);
 snd = BPF.ar(snd, (0..31).linexp(0, 31, 100, 8000), 0.05).sum;
 ```
-Processing Stages:
+
 1. Sawtooth generation with random octave jumps
    - Base frequency (e.g., 440 Hz)
    - Random jumps: -1 to +1 octaves
@@ -70,7 +70,7 @@ Processing Stages:
    - Exponential distribution
    - Q factor: 20 (1/0.05)
 ()
-## 3. Advanced Pattern Generation
+## 3. Rhythmic Pattern Generation
 
 ### Kick Pattern Mathematics
 ```supercollider
@@ -89,7 +89,7 @@ Therefore:
 - 14 units = 1000ms
 etc.
 
-### Probabilistic Hi-hat Generation
+### Hi-hat Generation
 ```supercollider
 if (0.2.coin) {
     10.do {
@@ -105,7 +105,7 @@ Creates two possible patterns:
    - Each hit spacing = beat * 0.5 / 10 ≈ 14.3ms
 2. 80% chance: Single hit
 
-## 4. Effect Processing Details
+## 4. Effect chain Details
 
 ### Drum Effects Chain
 ```supercollider
@@ -117,7 +117,7 @@ snd = SelectX.ar(ToggleFF.ar(Dust.ar(4)).lag(0.1),
 ## Components and Flow
 1. `Dust.ar(4)`
    - Random triggers at 4 Hz average rate
-   - Creates irregular timing
+   - Creates random timing
 
 2. `ToggleFF.ar()`
    - Switches between 0 and 1 on each trigger
@@ -135,7 +135,7 @@ snd = SelectX.ar(ToggleFF.ar(Dust.ar(4)).lag(0.1),
 
 
 ### The routine thing in this codes:
-()
+(I don't really understand this part, so I asked AI for some of the explaination)
 1. The outermost routine sets up the basic parameters:
 - Sets the BPM (beats per minute) to 210
 - Creates groups for reverb and drum effects
