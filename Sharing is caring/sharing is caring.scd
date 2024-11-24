@@ -7,7 +7,7 @@ SynthDef(\kick, {
 	snd = snd.tanh;
 	snd = snd * Env.perc(0.001, 1.0).ar(Done.freeSelf);
 	snd = snd ! 2;
-	snd = snd * \amp.kr(1);
+	snd = snd * \amp.kr(0.1);
 	Out.ar(\out.kr(0), snd);
 }).add;
 
@@ -19,7 +19,7 @@ SynthDef(\snare, {
 	snd = snd.tanh;
 	snd = snd * Env.perc(0.001, 0.3).ar(Done.freeSelf);
 	snd = snd ! 2;
-	snd = snd * \amp.kr(1);
+	snd = snd * \amp.kr(0.1);
 	Out.ar(\out.kr(0), snd);
 }).add;
 
@@ -29,7 +29,7 @@ SynthDef(\clap, {
 	snd = snd * Env.perc(0.001, 0.3).delay([0, 0.01, 0.02]).ar;
 	snd = Splay.ar(snd, 0.2);
 	snd = snd * Env.perc(0, \decay.kr(0.5)).ar(Done.freeSelf);
-	snd = snd * \amp.kr(1);
+	snd = snd * \amp.kr(0.1);
 	Out.ar(\out.kr(0), snd);
 }).add;
 
@@ -47,7 +47,7 @@ SynthDef(\glitch, {
 	snd = snd + dry;
 	snd = snd * Env.linen(0.001, \dur.kr(1), 0.001).ar(Done.freeSelf);
 	snd = Pan2.ar(snd, LFNoise2.kr(0.6));
-	snd = snd * \amp.kr(0.3);
+	snd = snd * \amp.kr(0.07);
 	Out.ar(\out.kr(0), snd);
 }).add;
 
@@ -61,10 +61,18 @@ SynthDef(\bass, {
 	snd = MoogFF.ar(snd, LFNoise2.kr(3).linexp(-1, 1, 100, 6000), 0);
 	snd = snd ! 2;
 	snd = snd * Env.asr(0.01, 1, 0.01).ar(Done.freeSelf, \gate.kr(1));
-	snd = snd * \amp.kr(1);
+	snd = snd * \amp.kr(0.1);
 	Out.ar(\out.kr(0), snd);
 }).add;
 
+SynthDef(\fx, {
+	var snd;
+	snd = In.ar(\out.kr(0), 2);
+	snd = PitchShift.ar(snd, 0.15, TExpRand.ar(0.5, 2, Dust.ar(3))) * 10.dbamp;
+	snd = SelectX.ar(ToggleFF.ar(Dust.ar(8)).lag(0.03), [snd, DelayC.ar(snd, 0.2, LFNoise2.kr(3). range(0, 0.2))]);
+	snd = snd * \amp.kr(1);
+	Out.ar(\out.kr(0), snd);
+}).add;
 
 )
 
@@ -74,12 +82,18 @@ Synth(\clap);
 Synth(\glitch);
 Synth(\bass);
 
-
 (
-b = ();
-PathName
-)
+var s;
+s = Server.default;
 
-MIDIIn.connectAll;
-MIDIFunc.trace(true);
+Synth.tail(s, \fx);
+
+Routine {
+	loop {
+		s.makeBundle(s.latency, {
+			Synth([\kick, \snare, \clap, \glitch, \bass].choose, [pan: rrand(-0.3, 0.3)]);
+		});
+		if (0.1.coin, { rrand(0.5, 3.0) }, {rrand(0.03, 0.3) }).wait;
+	};
+}.play;
 )
