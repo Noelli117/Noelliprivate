@@ -1,6 +1,9 @@
 
-Sound Design Implementation:
+This is a generative patch I made which is inspried by Nathon Ho's works.
 
+
+
+Sound Design Implementation:
 
 1.Kick Drum (\kick):
 
@@ -8,7 +11,7 @@ Uses layered FM synthesis with three components
 Primary oscillator modulated by two percussive envelopes
 Addition of high-frequency noise burst for initial "click"
 Tanh distortion for subtle harmonic enhancement
-Smart use of envelope modulation ratios (9x and 2x) for authentic drum behavior
+Smart use of envelope modulation ratios (9x and 2x) for drum behavior
 
 
 2.Snare Drum (\snare):
@@ -65,30 +68,3 @@ Toggle-based effect switching with smoothing
 Parallel processing structure
 
 
-Performance System:
-
-
-Probabilistic trigger system
-Variable timing between events (0.03-0.3s or 0.5-3.0s)
-Server-side bundling for timing accuracy
-Random pan positioning for spatial distribution
-
-
-Notable Technical Features:
-
-
-Extensive use of UGens for modulation (LFNoise2, Dust, TRand)
-Careful attention to initialization and cleanup (Done.freeSelf)
-Modular design with consistent amplitude control
-Efficient resource usage through shared output bus
-
-
-Algorithmic Composition Aspects:
-
-
-Probability-based decision making (0.1.coin)
-Dynamic timing variations
-Random instrument selection
-Emergent rhythmic patterns through probability distribution
-
-This code demonstrates advanced understanding of both digital signal processing and electronic music composition techniques. The synthesis methods show careful attention to spectral content and envelope shaping, while the algorithmic composition system creates engaging, non-repetitive patterns. The implementation balances CPU efficiency with sound quality, making it suitable for real-time performance.
