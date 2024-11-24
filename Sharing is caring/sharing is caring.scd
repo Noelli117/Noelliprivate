@@ -76,31 +76,10 @@ Synth(\bass);
 
 
 (
-Routine {
-var s;
-var bpm, beat;
-var bassNote;
-s = Server.default;
-	bpm = 210;
-	beat = 60 / bpm;
-Routine {
-		var bassSynth;
-		s.makeBundle(s.latency, {
-			bassSynth = Synth(\bass);
-		});
-		};
-	} .play;
+b = ();
+PathName
+)
 
-    Routine {
-		loop {
-			[0, 4, 6, 20, 35, 52, 59, 77, 78, 86, 89, 99, 122, 127][1..].differentiate.do { |duration|
-				s.makeBundle(s.latency, {
-					Synth(\kick);
-				});
-				(beat * 0.5 * duration).wait;
-			};
-		};
-	}.play;
-}.play;
-
+MIDIIn.connectAll;
+MIDIFunc.trace(true);
 )
