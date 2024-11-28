@@ -91,9 +91,9 @@ Synth.tail(s, \fx);
 Routine {
 	loop {
 		s.makeBundle(s.latency, {
-			Synth([\kick, \snare, \clap, \glitch, \bass].choose, [pan: rrand(-0.3, 0.3)]);
+			Synth([\kick, \snare, \clap, \glitch, \bass].choose, [pan: rrand(-0.2, 0.2)]);
 		});
-		if (0.1.coin, { rrand(0.5, 3.0) }, {rrand(0.03, 0.3) }).wait;
+		if (0.1.coin, { rrand(0.5, 3.0) }, {rrand(0.04, 0.3) }).wait;
 	};
 }.play;
 )
