@@ -1,7 +1,7 @@
 
 This is a generative patch I made which is inspried by Nathon Ho's works.
 
-I've watched Nathon HO's video on how to make drums, also stole couple of codess of his sound design technique.
+I made the drums by watching   Nathon HO's video tutori, also stole couple of codess of his sound design technique.
 
 Sound Design Implementation:
 
