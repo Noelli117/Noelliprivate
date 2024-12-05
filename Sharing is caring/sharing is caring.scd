@@ -54,7 +54,6 @@ SynthDef(\glitch, {
 SynthDef(\bass, {
 	var snd;
 	snd = Saw.ar(\freq.kr(110) * (2 ** TIRand.ar(-1, 1, Dust.ar(1))));
-	// https://nathan.ho.name/posts/moisture-bass/
 	snd = BHiShelf.ar(snd, 2000, 1.0, 10.0);
 	snd = BPF.ar(snd, (0..31).linexp(0, 31, 100, 8000), 0.05).sum;
 	snd = (snd * 3).tanh;
@@ -76,11 +75,7 @@ SynthDef(\fx, {
 
 )
 
-Synth(\kick);
-Synth(\snare);
-Synth(\clap);
-Synth(\glitch);
-Synth(\bass);
+Synth(\bass); //play this bass drone first
 
 (
 var s;
@@ -91,9 +86,10 @@ Synth.tail(s, \fx);
 Routine {
 	loop {
 		s.makeBundle(s.latency, {
-			Synth([\kick, \snare, \clap, \glitch, \bass].choose, [pan: rrand(-0.2, 0.2)]);
+			Synth([\kick, \snare, \clap, \glitch, \bass].choose, [pan: rrand(-0.2, 0.2)]) // mess around with the parameters here;
 		});
-		if (0.1.coin, { rrand(0.5, 3.0) }, {rrand(0.04, 0.3) }).wait;
+		if (0.1.coin, { rrand(0.5, 3.0) }, {rrand(0.01, 0.3) }).wait;// also mess around with parameters here(the bigger number the more chaotic the sound would be)
 	};
 }.play;
 )
+
