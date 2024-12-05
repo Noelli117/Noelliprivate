@@ -68,3 +68,6 @@ Toggle-based effect switching with smoothing
 Parallel processing structure
 
 
+How to play this project:
+
+Select all the synthdef group which has "add" at the end of line, hold cammand and click return. Then select the routine part, hold shift and click return.
