@@ -86,10 +86,11 @@ Synth.tail(s, \fx);
 Routine {
 	loop {
 		s.makeBundle(s.latency, {
-			Synth([\kick, \snare, \clap, \glitch, \bass].choose, [pan: rrand(-0.2, 0.2)]) // mess around with the parameters here;
+			Synth([\kick, \snare, \clap, \glitch, \bass].choose, [pan: rrand(-0.02, 0.02)]) // mess around with the parameters here;
 		});
-		if (0.1.coin, { rrand(0.5, 3.0) }, {rrand(0.01, 0.3) }).wait;// also mess around with parameters here(the bigger number the more chaotic the sound would be；be careful on adding up the number cuz it might eat up all of ur cpu and eventually crash)
+		if (0.1.coin, { rrand(0.5, 3.0) }, {rrand(0.01, 0.02) }).wait;// also mess around with parameters here(the bigger number the more chaotic the sound would be；be careful on adding up the number cuz it might eat up all of ur cpu and eventually crash)
 	};
 }.play;
 )
 
+s.stop;
